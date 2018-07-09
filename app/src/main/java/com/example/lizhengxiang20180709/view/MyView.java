@@ -25,37 +25,39 @@ public class MyView extends View {
     private Canvas canvas;//新建的画布
     public MyView(Context context) {
         super(context);
-        init();
+        init(context,null);
     }
 
     public MyView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs);
     }
 
-    public MyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
-
-
-
-    private void init(){
+    private void init(Context context, AttributeSet attrs) {
         paint = new Paint();//设置透明的画笔
         paint.setAntiAlias(true);
         paint.setAlpha(0);//设置成透明
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeJoin(Paint.Join.ROUND);//
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(50);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
 
         mpath = new Path();
         obitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image_12);
-        tbitmap = Bitmap.createBitmap(tbitmap.getWidth(),tbitmap.getHeight(),Bitmap.Config.ARGB_8888);
+        tbitmap = Bitmap.createBitmap(obitmap.getWidth(),obitmap.getHeight(),Bitmap.Config.ARGB_8888);
         canvas = new Canvas(tbitmap);
         canvas.drawColor(Color.GRAY);
     }
+
+    public MyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, attrs);
+    }
+
+
+
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
